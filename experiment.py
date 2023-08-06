@@ -102,8 +102,8 @@ for category, items_list in zip(categories, items):
 # >> Colors: ['red', 'blue', 'green', 'yellow', 'orange']
 # >> Books: ['The Catcher in the Rye', 'To Kill a Mockingbird', '1984', 'The Great Gatsby', 'Pride and Prejudice']
 # >> Movies: ['The Godfather', 'The Shawshank Redemption', 'Pulp Fiction', 'The Dark Knight', 'Fight Club']
-# >> Tv shows: ['Friends', 'Game of Thrones', 'Breaking Bad', 'The Office', 'Stranger Things']
-# >> Programming languages: ['Python', 'Java', 'C++', 'JavaScript', 'Ruby']
-# >> Code editors: ['Sublime Text', 'Visual Studio Code', 'Atom', 'Notepad++', 'Brackets']
+# >> TV Shows: ['Friends', 'Game of Thrones', 'Breaking Bad', 'The Office', 'Stranger Things']
+# >> Programming Languages: ['Python', 'Java', 'C++', 'JavaScript', 'Ruby']
+# >> Code Editors: ['Sublime Text', 'Visual Studio Code', 'Atom', 'Notepad++', 'Brackets']
 # >> APIs: ['Twilio', 'Stripe', 'Google Maps', 'OpenWeatherMap', 'Spotify']
 """
