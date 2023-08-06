@@ -9,8 +9,6 @@ from langchain.prompts.chat import (
 from langchain.schema import BaseOutputParser
 
 # Define a class to parse the output of an LLM call to a comma-separated list
-
-
 class CommaSeparatedListOutputParser(BaseOutputParser):
     """Parse the output of an LLM call to a comma-separated list."""
 
@@ -20,9 +18,11 @@ class CommaSeparatedListOutputParser(BaseOutputParser):
 
 # Define a function to print a separator with a message
 def print_separator(message):
+    """Print a separator with a message."""
     separator = "=" * 40
     print(f"{separator}\n{message}\n{separator}")
 
+# Print a separator to indicate the start of the translator experiment
 print_separator("STARTING EXPERIMENT - TRANSLATOR")
 
 # Define a template for a chat prompt that translates input_language to output_language
@@ -36,8 +36,9 @@ human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
 # Create a chat prompt from the system and human message prompts
 chat_prompt = ChatPromptTemplate.from_messages(
     [system_message_prompt, human_message_prompt])
+# Create a ChatOpenAI object to handle the translation
 chat_model = ChatOpenAI()
-# Test the chat model by translating "I love programming" from English to French
+# Test the chat model by translating "I love programming" from English to French, Mandarin, and Spanish
 print(chat_model.predict_messages(chat_prompt.format_messages(input_language="English",
       output_language="French", text="I love programming.")).content)
 print(chat_model.predict_messages(chat_prompt.format_messages(input_language="English",
@@ -45,6 +46,7 @@ print(chat_model.predict_messages(chat_prompt.format_messages(input_language="En
 print(chat_model.predict_messages(chat_prompt.format_messages(input_language="Mandarin",
       output_language="Spanish", text="我喜欢编程。 (Wǒ xǐhuān biānchéng.)")).content)
 
+# Print a separator to indicate the start of the list generator experiment
 print_separator("STARTING EXPERIMENT - LIST GENERATOR")
 
 # Define a template for a chat prompt that generates comma-separated lists
@@ -66,7 +68,6 @@ chain = LLMChain(
     prompt=chat_prompt,
     output_parser=CommaSeparatedListOutputParser()
 )
-# Test the LLMChain object by generating a list of 5 colors
 # Define the categories
 categories = [
     "colors",
