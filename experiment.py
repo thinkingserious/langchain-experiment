@@ -1,3 +1,4 @@
+from langchain.llms import OpenAI
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import LLMChain
 from langchain.prompts.chat import (
@@ -8,14 +9,21 @@ from langchain.prompts.chat import (
 from langchain.schema import BaseOutputParser
 
 # Define a class to parse the output of an LLM call to a comma-separated list
+
+
 class CommaSeparatedListOutputParser(BaseOutputParser):
     """Parse the output of an LLM call to a comma-separated list."""
+
     def parse(self, text: str):
         """Parse the output of an LLM call."""
         return text.strip().split(", ")
 
-# Test the CommaSeparatedListOutputParser class
-print(CommaSeparatedListOutputParser().parse("hi, bye"))
+# Define a function to print a separator with a message
+def print_separator(message):
+    separator = "=" * 40
+    print(f"{separator}\n{message}\n{separator}")
+
+print_separator("STARTING EXPERIMENT - TRANSLATOR")
 
 # Define a template for a chat prompt that translates input_language to output_language
 template = "You are a helpful assistant that translates {input_language} to {output_language}."
@@ -26,9 +34,18 @@ human_template = "{text}"
 # Create a human message prompt from the template
 human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
 # Create a chat prompt from the system and human message prompts
-chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
-# Test the chat prompt by formatting it with input_language, output_language, and text
-print(chat_prompt.format_messages(input_language="English", output_language="French", text="I love programming."))
+chat_prompt = ChatPromptTemplate.from_messages(
+    [system_message_prompt, human_message_prompt])
+chat_model = ChatOpenAI()
+# Test the chat model by translating "I love programming" from English to French
+print(chat_model.predict_messages(chat_prompt.format_messages(input_language="English",
+      output_language="French", text="I love programming.")).content)
+print(chat_model.predict_messages(chat_prompt.format_messages(input_language="English",
+      output_language="Mandarin", text="I love programming.")).content)
+print(chat_model.predict_messages(chat_prompt.format_messages(input_language="Mandarin",
+      output_language="Spanish", text="我喜欢编程。 (Wǒ xǐhuān biānchéng.)")).content)
+
+print_separator("STARTING EXPERIMENT - LIST GENERATOR")
 
 # Define a template for a chat prompt that generates comma-separated lists
 template = """You are a helpful assistant who generates comma separated lists.
@@ -41,7 +58,8 @@ human_template = "{text}"
 # Create a human message prompt from the template
 human_message_prompt = HumanMessagePromptTemplate.from_template(human_template)
 # Create a chat prompt from the system and human message prompts
-chat_prompt = ChatPromptTemplate.from_messages([system_message_prompt, human_message_prompt])
+chat_prompt = ChatPromptTemplate.from_messages(
+    [system_message_prompt, human_message_prompt])
 # Create an LLMChain object that uses the ChatOpenAI model, the chat prompt, and the CommaSeparatedListOutputParser object
 chain = LLMChain(
     llm=ChatOpenAI(),
@@ -49,5 +67,42 @@ chain = LLMChain(
     output_parser=CommaSeparatedListOutputParser()
 )
 # Test the LLMChain object by generating a list of 5 colors
-print(chain.run("colors"))
-# >> ['red', 'blue', 'green', 'yellow', 'orange']
+# Define the categories
+categories = [
+    "colors",
+    "books",
+    "movies",
+    "tv shows",
+    "programming languages",
+    "code editors",
+    "APIs"
+]
+# Generate a list of items for each category using the LLMChain object
+items = [chain.run(category) for category in categories]
+# Print the items for each category
+for category, items_list in zip(categories, items):
+    if category == "TV shows":
+        category = "TV Shows"
+    elif category == "APIs":
+        category = "APIs"
+    else:
+        category = category.title()
+    print(f"{category}: {items_list}")
+
+# Output
+
+"""
+# >> ['hi', 'bye']
+# >> =========================================
+# >> J'adore la programmation.
+# >> 我喜欢编程。 (Wǒ xǐhuān biānchéng.)
+# >> Me gusta programar.
+# >> =========================================
+# >> Colors: ['red', 'blue', 'green', 'yellow', 'orange']
+# >> Books: ['The Catcher in the Rye', 'To Kill a Mockingbird', '1984', 'The Great Gatsby', 'Pride and Prejudice']
+# >> Movies: ['The Godfather', 'The Shawshank Redemption', 'Pulp Fiction', 'The Dark Knight', 'Fight Club']
+# >> Tv shows: ['Friends', 'Game of Thrones', 'Breaking Bad', 'The Office', 'Stranger Things']
+# >> Programming languages: ['Python', 'Java', 'C++', 'JavaScript', 'Ruby']
+# >> Code editors: ['Sublime Text', 'Visual Studio Code', 'Atom', 'Notepad++', 'Brackets']
+# >> APIs: ['Twilio', 'Stripe', 'Google Maps', 'OpenWeatherMap', 'Spotify']
+"""
