@@ -32,12 +32,20 @@ export OPENAI_API_KEY="..."
 
 ## How to Run / Execute
 
-Once installed, execute your experiment with the following commands:
+### Experiment 0 - Hello LangChain
 
 ```zsh
 source env/bin/activate
 export OPENAI_API_KEY="..."
-python3 experiment.py
+python3 experiment_0.py
+```
+
+### Experiment 1 - API Chains
+
+```zsh
+source env/bin/activate
+export OPENAI_API_KEY="..."
+python3 experiment_api_chains.py
 ```
 
 ## Documentation and References
@@ -58,4 +66,3 @@ python3 experiment.py
     - [Guides](https://python.langchain.com/docs/guides)
     - [Use Cases](https://python.langchain.com/docs/use_cases)
     - [OpenAPI Integrations](https://python.langchain.com/docs/integrations/toolkits/openapi.html)
-    
