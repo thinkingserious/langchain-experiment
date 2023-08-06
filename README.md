@@ -48,13 +48,14 @@ python3 experiment.py
 ## ToDo List
 
 - Enhance your understanding of LangChain through their comprehensive documentation:
+    - [API Chains](https://python.langchain.com/docs/use_cases/apis/api.html)
+    - [OpenAI Agents](https://python.langchain.com/docs/integrations/toolkits/openapi.html)
+    - [Question Answering](https://python.langchain.com/docs/use_cases/question_answering)
     - [Model I/O & Prompts](https://python.langchain.com/docs/modules/model_io/prompts)
     - [Output Parsers](https://python.langchain.com/docs/modules/model_io/output_parsers)
     - [Model I/O](https://python.langchain.com/docs/modules/model_io)
     - [Modules](https://python.langchain.com/docs/modules)
     - [Guides](https://python.langchain.com/docs/guides)
     - [Use Cases](https://python.langchain.com/docs/use_cases)
-    - [Question Answering](https://python.langchain.com/docs/use_cases/question_answering)
-    - [APIs](https://python.langchain.com/docs/use_cases/apis)
-    - [API Documentation](https://python.langchain.com/docs/use_cases/apis/api.html)
     - [OpenAPI Integrations](https://python.langchain.com/docs/integrations/toolkits/openapi.html)
+    
