@@ -42,7 +42,8 @@ python3 experiment.py
 
 ## Documentation and References
 
-Explore deeper with the [LangChain documentation](https://python.langchain.com/docs) and become a LangChain maestro!
+- Explore deeper with the [LangChain documentation](https://python.langchain.com/docs) and become a LangChain maestro!
+- [Navigate the Essentials of ChatGPT](https://elmerthomas.vercel.app/getting-started/openai/chatgpt).
 
 ## ToDo List
 
