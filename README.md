@@ -24,10 +24,7 @@ Get started with LangChain by following these installation steps:
 ```zsh
 python3 -m venv env
 source env/bin/activate
-pip3 install langchain openai
-pip3 install --upgrade pip
-pip3 freeze > requirements.txt
-export OPENAI_API_KEY="..."
+pip3 install -r requirements.txt
 ```
 
 ## How to Run / Execute
@@ -36,7 +33,6 @@ export OPENAI_API_KEY="..."
 
 ```zsh
 source env/bin/activate
-export OPENAI_API_KEY="..."
 python3 experiment_0.py
 ```
 
@@ -44,8 +40,13 @@ python3 experiment_0.py
 
 ```zsh
 source env/bin/activate
-export OPENAI_API_KEY="..."
 python3 experiment_api_chains.py
+```
+
+### Update Packages
+
+```zsh
+pip3 install -r requirements.txt --upgrade
 ```
 
 ## Documentation and References

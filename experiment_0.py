@@ -7,20 +7,12 @@ from langchain.prompts.chat import (
     HumanMessagePromptTemplate,
 )
 from langchain.schema import BaseOutputParser
+from utils import CommaSeparatedListOutputParser, print_separator
+from dotenv import load_dotenv
+import os
 
-# Define a class to parse the output of an LLM call to a comma-separated list
-class CommaSeparatedListOutputParser(BaseOutputParser):
-    """Parse the output of an LLM call to a comma-separated list."""
-
-    def parse(self, text: str):
-        """Parse the output of an LLM call."""
-        return text.strip().split(", ")
-
-# Define a function to print a separator with a message
-def print_separator(message):
-    """Print a separator with a message."""
-    separator = "=" * 40
-    print(f"{separator}\n{message}\n{separator}")
+# Load the environment variables from the .env file
+load_dotenv()
 
 # Print a separator to indicate the start of the translator experiment
 print_separator("STARTING EXPERIMENT - TRANSLATOR")
