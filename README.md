@@ -57,7 +57,7 @@ pip3 install -r requirements.txt --upgrade
 ## ToDo List
 
 - Enhance your understanding of LangChain through their comprehensive documentation:
-    - [API Chains](https://python.langchain.com/docs/use_cases/apis/api.html)
+    - [HTTP Request Chains](https://python.langchain.com/docs/use_cases/apis/llm_requests)
     - [OpenAI Agents](https://python.langchain.com/docs/integrations/toolkits/openapi.html)
     - [Question Answering](https://python.langchain.com/docs/use_cases/question_answering)
     - [Model I/O & Prompts](https://python.langchain.com/docs/modules/model_io/prompts)
