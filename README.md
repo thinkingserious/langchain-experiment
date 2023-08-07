@@ -40,7 +40,7 @@ python3 experiment_0.py
 
 ```zsh
 source env/bin/activate
-python3 experiment_api_chains.py
+python3 experiment_1_api_chains.py
 ```
 
 ### Update Packages
