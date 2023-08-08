@@ -43,6 +43,13 @@ source env/bin/activate
 python3 experiment_1_api_chains.py
 ```
 
+### Experiment 2 - HTTP to GPT
+
+```zsh
+source env/bin/activate
+python3 experiment_2_http_to_gpt.py
+```
+
 ### Update Packages
 
 ```zsh
@@ -56,14 +63,12 @@ pip3 install -r requirements.txt --upgrade
 
 ## ToDo List
 
-- Enhance your understanding of LangChain through their comprehensive documentation:
-    - [HTTP Request Chains](https://python.langchain.com/docs/use_cases/apis/llm_requests)
-    - [OpenAI Agents](https://python.langchain.com/docs/integrations/toolkits/openapi.html)
-    - [Question Answering](https://python.langchain.com/docs/use_cases/question_answering)
-    - [Model I/O & Prompts](https://python.langchain.com/docs/modules/model_io/prompts)
-    - [Output Parsers](https://python.langchain.com/docs/modules/model_io/output_parsers)
-    - [Model I/O](https://python.langchain.com/docs/modules/model_io)
-    - [Modules](https://python.langchain.com/docs/modules)
-    - [Guides](https://python.langchain.com/docs/guides)
-    - [Use Cases](https://python.langchain.com/docs/use_cases)
-    - [OpenAPI Integrations](https://python.langchain.com/docs/integrations/toolkits/openapi.html)
+- [OpenAI Agents](https://python.langchain.com/docs/integrations/toolkits/openapi.html)
+- [Question Answering](https://python.langchain.com/docs/use_cases/question_answering)
+- [Model I/O & Prompts](https://python.langchain.com/docs/modules/model_io/prompts)
+- [Output Parsers](https://python.langchain.com/docs/modules/model_io/output_parsers)
+- [Model I/O](https://python.langchain.com/docs/modules/model_io)
+- [Modules](https://python.langchain.com/docs/modules)
+- [Guides](https://python.langchain.com/docs/guides)
+- [Use Cases](https://python.langchain.com/docs/use_cases)
+- [OpenAPI Integrations](https://python.langchain.com/docs/integrations/toolkits/openapi.html)
