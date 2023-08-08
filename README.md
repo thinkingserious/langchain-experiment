@@ -27,6 +27,12 @@ source env/bin/activate
 pip3 install -r requirements.txt
 ```
 
+```zsh
+cp .env.example .env
+```
+
+Populate the environment variables in your `.env` file.
+
 ## How to Run / Execute
 
 ### Experiment 0 - Hello LangChain
@@ -50,6 +56,13 @@ source env/bin/activate
 python3 experiment_2_http_to_gpt.py
 ```
 
+### Experiment 3 - Communications via Twilio
+
+```zsh
+source env/bin/activate
+python3 experiment_3_twilio.py
+```
+
 ### Update Packages
 
 ```zsh
@@ -63,6 +76,7 @@ pip3 install -r requirements.txt --upgrade
 
 ## ToDo List
 
+- [Twilio](https://python.langchain.com/docs/integrations/tools/twilio)
 - [OpenAI Agents](https://python.langchain.com/docs/integrations/toolkits/openapi.html)
 - [Question Answering](https://python.langchain.com/docs/use_cases/question_answering)
 - [Model I/O & Prompts](https://python.langchain.com/docs/modules/model_io/prompts)
