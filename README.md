@@ -63,6 +63,13 @@ source env/bin/activate
 python3 experiment_3_twilio.py
 ```
 
+### Experiment 4 - Question & Answer Over Unstructured Data
+
+```zsh
+source env/bin/activate
+python3 experiment_4_QA_over_unstructured_text_docs.py
+```
+
 ### Update Packages
 
 ```zsh
@@ -76,9 +83,8 @@ pip3 install -r requirements.txt --upgrade
 
 ## ToDo List
 
-- [Twilio](https://python.langchain.com/docs/integrations/tools/twilio)
-- [OpenAI Agents](https://python.langchain.com/docs/integrations/toolkits/openapi.html)
 - [Question Answering](https://python.langchain.com/docs/use_cases/question_answering)
+- [OpenAI Agents](https://python.langchain.com/docs/integrations/toolkits/openapi.html)
 - [Model I/O & Prompts](https://python.langchain.com/docs/modules/model_io/prompts)
 - [Output Parsers](https://python.langchain.com/docs/modules/model_io/output_parsers)
 - [Model I/O](https://python.langchain.com/docs/modules/model_io)
@@ -86,3 +92,4 @@ pip3 install -r requirements.txt --upgrade
 - [Guides](https://python.langchain.com/docs/guides)
 - [Use Cases](https://python.langchain.com/docs/use_cases)
 - [OpenAPI Integrations](https://python.langchain.com/docs/integrations/toolkits/openapi.html)
+- [How to Build a Wikipedia AI Assistant on WhatsApp with Python, LangChain, OpenAI, and Twilio](https://www.twilio.com/blog/wikipedia-ai-assistant-whatsapp-python-langchain-openai)
