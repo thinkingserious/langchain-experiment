@@ -74,6 +74,7 @@ python3 experiment_4_QA_over_unstructured_text_docs.py
 
 ```zsh
 pip3 install -r requirements.txt --upgrade
+pip3 freeze > requirements.txt
 ```
 
 ## Documentation and References

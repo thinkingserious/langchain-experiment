@@ -8,6 +8,7 @@ from langchain.retrievers import SVMRetriever
 from langchain.chat_models import ChatOpenAI
 from langchain.retrievers.multi_query import MultiQueryRetriever
 from langchain.chains import RetrievalQA
+from langchain.llms import GPT4All
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -86,3 +87,11 @@ llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
 qa_chain = RetrievalQA.from_chain_type(llm,retriever=vectorstore.as_retriever())
 print(qa_chain({"query": question}))
 # >> {'query': 'What are the approaches to Task Decomposition?', 'result': 'The approaches to task decomposition include:\n\n1. Prompting with LLM: This approach involves using simple prompts to guide the model in decomposing the task into subgoals or steps. For example, the model can be prompted with instructions like "Steps for XYZ" or "What are the subgoals for achieving XYZ?"\n\n2. Task-specific instructions: In this approach, task-specific instructions are provided to the model to guide the task decomposition process. For example, if the task is to write a novel, the model can be instructed to "Write a story outline" as a step in the task decomposition.\n\n3. Human inputs: Task decomposition can also be done with the help of human inputs. Humans can provide guidance and input to the model in breaking down the task into smaller and simpler steps.\n\nIt\'s important to note that these approaches are not mutually exclusive and can be used in combination depending on the specific requirements of the task and the capabilities of the model.'}
+
+# https://huggingface.co/TheBloke/Nous-Hermes-13B-GGML/blob/main/nous-hermes-13b.ggmlv3.q4_0.bin
+# https://api.python.langchain.com/en/latest/llms/langchain.llms.gpt4all.GPT4All.html
+# https://api.python.langchain.com/en/latest/chains/langchain.chains.retrieval_qa.base.RetrievalQA.html
+llm = GPT4All(model="./nous-hermes-13b.ggmlv3.q4_0.bin",max_tokens=2048)
+qa_chain = RetrievalQA.from_chain_type(llm, retriever=vectorstore.as_retriever())
+print(qa_chain({"query": question}))
+# >> {'query': 'What are the approaches to Task Decomposition?', 'result': 'There are three main approaches to Task Decomposition: (1) using simple prompts like "Steps for XYZ.\\n1.", (2) with task-specific instructions, such as "Write a story outline." for writing a novel or by human inputs. LLM can also be used for this purpose and it involves breaking down the problem into multiple thought steps and generating multiple thoughts per step to create a tree structure using techniques like CoT or Tree of Thoughts (Yao et al. 2023).'}
