@@ -9,6 +9,7 @@ from langchain.chat_models import ChatOpenAI
 from langchain.retrievers.multi_query import MultiQueryRetriever
 from langchain.chains import RetrievalQA
 from langchain.llms import GPT4All
+from langchain.prompts import PromptTemplate
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -95,3 +96,24 @@ llm = GPT4All(model="./nous-hermes-13b.ggmlv3.q4_0.bin",max_tokens=2048)
 qa_chain = RetrievalQA.from_chain_type(llm, retriever=vectorstore.as_retriever())
 print(qa_chain({"query": question}))
 # >> {'query': 'What are the approaches to Task Decomposition?', 'result': 'There are three main approaches to Task Decomposition: (1) using simple prompts like "Steps for XYZ.\\n1.", (2) with task-specific instructions, such as "Write a story outline." for writing a novel or by human inputs. LLM can also be used for this purpose and it involves breaking down the problem into multiple thought steps and generating multiple thoughts per step to create a tree structure using techniques like CoT or Tree of Thoughts (Yao et al. 2023).'}
+
+# https://api.python.langchain.com/en/latest/chains/langchain.chains.retrieval_qa.base.RetrievalQA.html
+# https://api.python.langchain.com/en/latest/prompts/langchain.prompts.prompt.PromptTemplate.html
+template = """Use the following pieces of context to answer the question at the end. 
+If you don't know the answer, just say that you don't know, don't try to make up an answer. 
+Use three sentences maximum and keep the answer as concise as possible. 
+Always say "thanks for asking!" at the end of the answer. 
+{context}
+Question: {question}
+Helpful Answer:"""
+QA_CHAIN_PROMPT = PromptTemplate.from_template(template)
+
+llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
+qa_chain = RetrievalQA.from_chain_type(
+    llm,
+    retriever=vectorstore.as_retriever(),
+    chain_type_kwargs={"prompt": QA_CHAIN_PROMPT}
+)
+result = qa_chain({"query": question})
+print(result["result"])
+# >> The approaches to Task Decomposition include using simple prompting with LLM, task-specific instructions, and human inputs. Thanks for asking!
