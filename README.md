@@ -84,7 +84,8 @@ pip3 freeze > requirements.txt
 
 ## ToDo List
 
-- [Question Answering](https://python.langchain.com/docs/use_cases/question_answering)
+- [PDF loaders](https://python.langchain.com/docs/modules/data_connection/document_loaders/pdf)
+- [Chatbots](https://python.langchain.com/docs/use_cases/chatbots)
 - [OpenAI Agents](https://python.langchain.com/docs/integrations/toolkits/openapi.html)
 - [Model I/O & Prompts](https://python.langchain.com/docs/modules/model_io/prompts)
 - [Output Parsers](https://python.langchain.com/docs/modules/model_io/output_parsers)
@@ -94,3 +95,4 @@ pip3 freeze > requirements.txt
 - [Use Cases](https://python.langchain.com/docs/use_cases)
 - [OpenAPI Integrations](https://python.langchain.com/docs/integrations/toolkits/openapi.html)
 - [How to Build a Wikipedia AI Assistant on WhatsApp with Python, LangChain, OpenAI, and Twilio](https://www.twilio.com/blog/wikipedia-ai-assistant-whatsapp-python-langchain-openai)
+- [Collaborate with the Hugging Face community](https://huggingface.co)

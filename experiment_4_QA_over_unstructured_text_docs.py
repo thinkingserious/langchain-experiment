@@ -10,6 +10,8 @@ from langchain.retrievers.multi_query import MultiQueryRetriever
 from langchain.chains import RetrievalQA
 from langchain.llms import GPT4All
 from langchain.prompts import PromptTemplate
+from langchain.chains import RetrievalQAWithSourcesChain
+from langchain.chains.question_answering import load_qa_chain
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -26,7 +28,7 @@ data = loader.load()
 
 # https://python.langchain.com/docs/modules/data_connection/document_transformers
 # https://python.langchain.com/docs/use_cases/question_answering/how_to/document-context-aware-QA
-# https://python.langchain.com/docs/use_cases/question_answering/docs/integrations/document_loaders/source_code
+# https://python.langchain.com/docs/use_cases/question_answering/docs/integrations
 # https://python.langchain.com/docs/integrations/document_loaders/grobid
 text_splitter = RecursiveCharacterTextSplitter(chunk_size = 500, chunk_overlap = 0)
 all_splits = text_splitter.split_documents(data)
@@ -107,7 +109,6 @@ Always say "thanks for asking!" at the end of the answer.
 Question: {question}
 Helpful Answer:"""
 QA_CHAIN_PROMPT = PromptTemplate.from_template(template)
-
 llm = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
 qa_chain = RetrievalQA.from_chain_type(
     llm,
@@ -117,3 +118,31 @@ qa_chain = RetrievalQA.from_chain_type(
 result = qa_chain({"query": question})
 print(result["result"])
 # >> The approaches to Task Decomposition include using simple prompting with LLM, task-specific instructions, and human inputs. Thanks for asking!
+
+# https://api.python.langchain.com/en/latest/chains/langchain.chains.retrieval_qa.base.RetrievalQA.html
+qa_chain = RetrievalQA.from_chain_type(llm,retriever=vectorstore.as_retriever(),
+                                       return_source_documents=True)
+result = qa_chain({"query": question})
+print(len(result['source_documents']))
+print(result['source_documents'][0])
+# >> 4
+# >> page_content='Task decomposition can be done (1) by LLM with simple prompting like "Steps for XYZ.\\n1.", "What are the subgoals for achieving XYZ?", (2) by using task-specific instructions; e.g. "Write a story outline." for writing a novel, or (3) with human inputs.' metadata={'description': 'Building agents with LLM (large language model) as its core controller is a cool concept. Several proof-of-concepts demos, such as AutoGPT, GPT-Engineer and BabyAGI, serve as inspiring examples. The potentiality of LLM extends beyond generating well-written copies, stories, essays and programs; it can be framed as a powerful general problem solver.\nAgent System Overview In a LLM-powered autonomous agent system, LLM functions as the agent’s brain, complemented by several key components:', 'language': 'en', 'source': 'https://lilianweng.github.io/posts/2023-06-23-agent/', 'title': "LLM Powered Autonomous Agents | Lil'Log"}
+
+# https://api.python.langchain.com/en/latest/chains/langchain.chains.qa_with_sources.retrieval.RetrievalQAWithSourcesChain.html
+qa_chain = RetrievalQAWithSourcesChain.from_chain_type(llm,retriever=vectorstore.as_retriever())
+result = qa_chain({"question": question})
+print(result)
+# >> {'question': 'What are the approaches to Task Decomposition?', 'answer': 'The approaches to Task Decomposition include:\n1. Using LLM with simple prompting, such as providing steps or subgoals for achieving a task.\n2. Using task-specific instructions, such as providing a specific instruction like "Write a story outline" for writing a novel.\n3. Using human inputs to decompose the task.\nAnother approach is the Tree of Thoughts, which extends the Chain of Thought (CoT) technique by exploring multiple reasoning possibilities at each step and generating multiple thoughts per step, creating a tree structure. The search process can be BFS or DFS, and each state can be evaluated by a classifier or majority vote.\nSources: https://lilianweng.github.io/posts/2023-06-23-agent/', 'sources': ''}
+
+# https://python.langchain.com/docs/use_cases/question_answering/how_to/question_answering.html
+chain = load_qa_chain(llm, chain_type="stuff")
+result = chain({"input_documents": unique_docs, "question": question}, return_only_outputs=True)
+print(result)
+# >> {'output_text': 'The approaches to task decomposition mentioned in the provided context are:\n\n1. Chain of thought (CoT): This approach involves instructing the language model to "think step by step" and decompose complex tasks into smaller and simpler steps. It enhances model performance on complex tasks by utilizing more test-time computation.\n\n2. Tree of Thoughts: This approach extends CoT by exploring multiple reasoning possibilities at each step. It decomposes the problem into multiple thought steps and generates multiple thoughts per step, creating a tree structure. The search process can be BFS or DFS, and each state is evaluated by a classifier or majority vote.\n\n3. LLM with simple prompting: This approach involves using simple prompts like "Steps for XYZ" or "What are the subgoals for achieving XYZ" to guide the language model in task decomposition.\n\n4. Task-specific instructions: This approach involves providing task-specific instructions to guide the language model in task decomposition. For example, providing the instruction "Write a story outline" for the task of writing a novel.\n\n5. Human inputs: Task decomposition can also be done with human inputs, where humans provide guidance and instructions to break down a task into smaller subtasks.'}
+
+qa_chain = RetrievalQA.from_chain_type(llm,
+                                       retriever=vectorstore.as_retriever(),
+                                       chain_type="stuff")
+result = qa_chain({"query": question})
+print(result)
+# >> {'query': 'What are the approaches to Task Decomposition?', 'result': 'The approaches to task decomposition include:\n\n1. Prompting with LLM: This approach involves using simple prompts to guide the model in decomposing the task into subgoals or steps. For example, the model can be prompted with instructions like "Steps for XYZ" or "What are the subgoals for achieving XYZ?"\n\n2. Task-specific instructions: In this approach, task-specific instructions are provided to the model to guide the task decomposition process. For example, if the task is to write a novel, the model can be instructed to "Write a story outline" as a step in the task decomposition.\n\n3. Human inputs: Task decomposition can also be done with the help of human inputs. Humans can provide guidance and input to the model in breaking down the task into smaller and simpler steps.\n\nIt\'s important to note that these approaches are not mutually exclusive and can be used in combination depending on the specific requirements of the task and the capabilities of the model.'}
